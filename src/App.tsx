@@ -54,6 +54,47 @@ function App() {
   console.log(position);
   move("left");
   console.log(position);
+
+  type LoadingState = {
+    state: "loading";
+  };
+  type SuccessState = {
+    state: "success";
+    response: {
+      body: string;
+    };
+  };
+  type FailState = {
+    state: "fail";
+    reason: string;
+  };
+  type ResourceLoadState = LoadingState | SuccessState | FailState;
+  function printLogInState(logInState:ResourceLoadState):string{
+    if(logInState.state === "loading"){
+      return "loading...";
+    }else if(logInState.state === "success"){
+      return "loaded";
+    }else if(logInState.state === "fail"){
+      return "no work";
+    }else {
+      return "";
+    }
+  }
+  console.log(printLogInState({
+    state: "loading"
+  }));
+  console.log(printLogInState({
+    state: "success",
+    response: {
+      body: "loaded"
+    }
+  }));
+  console.log(printLogInState({
+    state: "fail",
+    reason: "no network"
+  }));
+
+
   return <div className="App">hello</div>;
 }
 
